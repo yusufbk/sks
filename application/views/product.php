@@ -537,7 +537,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             if(isset($a)){
                                 $query = $this->db->query("SELECT * FROM produk where kategori = '$a' and qty > '0' order by id desc");
                             }else{
-                                $query = $this->db->query("SELECT * FROM produk where qty > '0' order by id desc");   
+                                $query = $this->db->query("SELECT * FROM produk where qty > '0' order by id desc");
                             }
                             foreach ($query->result_array() as $row) {
                         ?>
@@ -575,6 +575,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <input type="hidden" name="nama" value="<?php echo $row['nama']; ?>" />
                   <input type="hidden" name="harga" value="<?php echo $row['harga']; ?>" />
                   <input type="hidden" name="gambar" value="<?php echo $row['gambar']; ?>" />
+									<input type="hidden" name="stok" value="<?php echo $row['qty']; ?>" />
                   <input type="hidden" name="qty" value="1" />
                   <button type="submit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> Beli</button>
 

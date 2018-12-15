@@ -385,7 +385,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             // Create form and send all values in "shopping/update_cart" function.
             $grand_total = 0;
             $i = 1;
-                    
+
             foreach ($cart as $item):
             $grand_total = $grand_total + $item['subtotal'];
             ?>
@@ -398,7 +398,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <tr>
             <td><?php echo $i++; ?></td>
             <td><img class="img-responsive" src="<?php echo base_url() . 'assets/images/'.$item['gambar']; ?>"/></td>
-            <td><?php echo $item['name']; ?></td>
+            <td><?php echo $item['stok']; ?></td>
             <td><?php echo number_format($item['price'], 0,",","."); ?></td>
             <td><input type="text" class="form-control input-sm" name="cart[<?php echo $item['id'];?>][qty]" value="<?php echo $item['qty'];?>" /></td>
             <td><?php echo number_format($item['subtotal'], 0,",",".") ?></td>
@@ -418,8 +418,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 else
                     {
-                        echo "<h3>Keranjang Belanja masih kosong</h3>"; 
-                    }   
+                        echo "<h3>Keranjang Belanja masih kosong</h3>";
+                    }
             ?>
             </form>
 				</div>
@@ -437,20 +437,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <div class="modal-body">
             Anda yakin mau mengosongkan Shopping Cart?
-             
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Tidak</button>
           <button type="submit" class="btn btn-sm btn-default">Ya</button>
         </div>
-         
+
         </form>
       </div>
-       
+
     </div>
   </div>
-  <!--End Modal-->            
-            
+  <!--End Modal-->
+
 			<div class="flex-w flex-sb-m p-t-25 p-b-25 bo8 p-l-35 p-r-60 p-lr-15-sm">
 				<div class="flex-w flex-m w-full-sm">
 					<div class="size11 bo4 m-r-10">

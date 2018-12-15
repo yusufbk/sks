@@ -373,39 +373,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         {
                             $grand_total = $grand_total + $item['subtotal'];
                         }
-                    echo "<h4>Total Belanja: Rp.".number_format($grand_total,0,",",".")."</h4>";    
+                    echo "<h4>Total Belanja: Rp.".number_format($grand_total,0,",",".")."</h4>";
             ?>
             <form class="form-horizontal" action="<?php echo base_url()?>shopping/proses_order" method="post" name="frmCO" id="frmCO">
                 <?php
                     $userid = $this->session->userdata('id');
                     $query = $this->db->query("SELECT * FROM users where id_user = '$userid'");
-                    foreach ($query->result_array() as $row) { 
+                    foreach ($query->result_array() as $row) {
                 ?>
 
                     <div class="form-group  has-success has-feedback">
                         <label class="control-label col-xs-3" for="inputEmail">Email:</label>
                         <div class="col-xs-9">
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="<?php echo $row['email'] ?>"> 
-                        </div> 
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="<?php echo $row['email'] ?>">
+                        </div>
                     </div>
                     <div class="form-group  has-success has-feedback">
                         <label class="control-label col-xs-3" for="firstName">Nama :</label>
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Lengkap" value="<?php echo $row['nama_user'] ?>"> 
-                        </div> 
+                            <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Lengkap" value="<?php echo $row['nama_user'] ?>">
+                        </div>
                     </div>
                     <div class="form-group  has-success has-feedback">
                         <label class="control-label col-xs-3" for="lastName">Alamat:</label>
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Alamat" value="<?php echo $row['alamat'] ?>"> 
+                            <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Alamat" value="<?php echo $row['alamat'] ?>">
                         </div>
                     </div>
                     <div class="form-group  has-success has-feedback">
                         <label class="control-label col-xs-3" for="phoneNumber">Telp:</label>
                         <div class="col-xs-9">
-                            <input type="tel" class="form-control" name="telp" id="telp" placeholder="No Telp" value="<?php echo $row['telp'] ?>"> 
+                            <input type="tel" class="form-control" name="telp" id="telp" placeholder="No Telp" value="<?php echo $row['telp'] ?>">
                         </div>
                     </div>
+										<div class="form-group  has-success has-feedback">
+                        <label class="control-label col-xs-3" for="lastName">Alamat:</label>
+                        <div class="col-xs-9">
+                            <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Alamat" value="<?php echo $item['id'] ?>"> 
+                        </div>
 
                     <div class="form-group  has-success has-feedback">
                         <div class="col-xs-offset-3 col-xs-9">
@@ -418,7 +423,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
                 else
                     {
-                        echo "<h5>Shopping Cart masih kosong</h5>"; 
+                        echo "<h5>Shopping Cart masih kosong</h5>";
                     }
                 ?>
             </div>
@@ -436,20 +441,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <div class="modal-body">
             Anda yakin mau mengosongkan Shopping Cart?
-             
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Tidak</button>
           <button type="submit" class="btn btn-sm btn-default">Ya</button>
         </div>
-         
+
         </form>
       </div>
-       
+
     </div>
   </div>
-  <!--End Modal-->            
-            
+  <!--End Modal-->
+
 			<div class="flex-w flex-sb-m p-t-25 p-b-25 bo8 p-l-35 p-r-60 p-lr-15-sm">
 				<div class="flex-w flex-m w-full-sm">
 					<div class="size11 bo4 m-r-10">
