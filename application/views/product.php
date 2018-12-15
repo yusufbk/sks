@@ -378,7 +378,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <?php
                             $query2 = $this->db->query("SELECT * FROM kategori order by kategori asc");
                             foreach ($query2->result_array() as $rows) {
-                        ?>    
+                        ?>
 							<li class="p-t-4">
 								<a href='product?id=<?php echo $rows['kategori'];?>'><?php echo $rows['kategori'];?></a>
 							</li>
@@ -469,10 +469,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <br>
            <div class="list-group">
            <a href="<?php echo base_url()?>shopping/cart" class="list-group-item"><strong><i class="glyphicon glyphicon-shopping-cart"></i> KERANJANG BELANJA</strong></a>
-          <?php 
-           
+          <?php
+
             $cart= $this->cart->contents();
- 
+
 // If cart is empty, this will show below message.
             if(empty($cart)) {
                 ?>
@@ -487,15 +487,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             $grand_total+=$item['subtotal'];
                 ?>
                 <a class="list-group-item"><?php echo $item['name']; ?> (<?php echo $item['qty']; ?> x <?php echo number_format($item['price'],0,",","."); ?>)=<?php echo number_format($item['subtotal'],0,",","."); ?></a>
-                <?php    
+                <?php
                         }
                 ?>
- 
-                <?php        
+
+                <?php
                 }
  ?>
-            </div>                
-                        
+            </div>
+
 					</div>
 				</div>
 
@@ -533,11 +533,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<!-- Product -->
 					<div class="row">
                         <?php
-                            $a = $this->input->get('id'); 
+                            $a = $this->input->get('id');
                             if(isset($a)){
-                                $query = $this->db->query("SELECT * FROM produk where kategori = '$a' order by id desc"); 
+                                $query = $this->db->query("SELECT * FROM produk where kategori = '$a' and qty > '0' order by id desc");
                             }else{
-                                $query = $this->db->query("SELECT * FROM produk order by id desc");   
+                                $query = $this->db->query("SELECT * FROM produk where qty > '0' order by id desc");   
                             }
                             foreach ($query->result_array() as $row) {
                         ?>
@@ -563,9 +563,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</div>
 									</div>
 								</div>
-                                
+
 								<div class="block2-txt p-t-20">
-                                    <a href='detail?id=<?php echo $row['id'];?>'><?php echo $row['nama'];?></a>        
+                                    <a href='detail?id=<?php echo $row['id'];?>'><?php echo $row['nama'];?></a>
                                     <br>
 									<span class="block2-price m-text6 p-r-5">
 										<?php echo $row['harga'];?>
@@ -576,13 +576,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <input type="hidden" name="harga" value="<?php echo $row['harga']; ?>" />
                   <input type="hidden" name="gambar" value="<?php echo $row['gambar']; ?>" />
                   <input type="hidden" name="qty" value="1" />
-                  <button type="submit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> Beli</button>                                    
-                     
+                  <button type="submit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> Beli</button>
+
 								</div>
-							</div>                           
+							</div>
 						</div>
-                    </form>  
-                    <?php } ?>  
+                    </form>
+                    <?php } ?>
 
 					</div>
 
