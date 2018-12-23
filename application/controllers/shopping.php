@@ -40,15 +40,37 @@ class shopping extends CI_Controller {
      
      
     function tambah()
-    {
+    {   
+        if ($cart = $this->cart->contents())
+            {
+                foreach ($cart as $item)
+                    {        
+                        $qty = $item['qty'];
+                    }
+            }
+        $id = $this->input->post('id');
+        
+        $query = $this->db->query("SELECT * FROM produk where id = '$id'");
+        $hasil = $query->result();        
+        foreach($hasil as $a){
+            $result = $a->qty;
+        }
+        
+        if($result > $qty){
         $data_produk= array('id' => $this->input->post('id'),
                              'name' => $this->input->post('nama'),
                              'price' => $this->input->post('harga'),
                              'gambar' => $this->input->post('gambar'),
                              'qty' =>$this->input->post('qty')
                             );
-        $this->cart->insert($data_produk);
-        redirect('product');
+            $this->cart->insert($data_produk);
+            redirect('product');
+        } else{
+            echo ("<script LANGUAGE='JavaScript'>
+            window.alert('Jumlah pembelian melebihi stok');
+            window.location.href='../product';
+            </script>");
+        }
     }
  
     function hapus($rowid) 
@@ -99,6 +121,7 @@ class shopping extends CI_Controller {
                             'pelanggan' => $id_pelanggan);
         $id_order = $this->m_cart->tambah_order($data_order);
         //-------------------------Input data detail order-----------------------       
+
         if ($cart = $this->cart->contents())
             {
                 foreach ($cart as $item)
@@ -106,10 +129,25 @@ class shopping extends CI_Controller {
                         $data_detail = array('order_id' =>$id_order,
                                         'produk' => $item['id'],
                                         'qty' => $item['qty'],
-                                        'total_harga' => $item['price']);          
+                                        'total_harga' => $item['price']*$item['qty'],
+                                            'status_id' => '1');          
                         $proses = $this->m_cart->tambah_detail_order($data_detail);
+                    
+                        $id = $item['id'];
+                        $qty = $item['qty'];
+
+                        $query = $this->db->query("SELECT * FROM produk where id = '$id'");
+                        $hasil = $query->result();        
+                        foreach($hasil as $a){
+                            $result = $a->qty;
+                        }        
+
+                        $stok = $result - $qty;                    
                     }
-            }
+            }      
+         
+        $sql = "UPDATE produk SET qty='$stok' WHERE id=".$id;
+        $this->db->query($sql);
         //-------------------------Hapus shopping cart--------------------------        
         $this->cart->destroy();
         $data['kategori'] = $this->m_cart->get_kategori_all();

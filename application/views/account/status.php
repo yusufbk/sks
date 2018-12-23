@@ -79,55 +79,56 @@
         <!-- /#header -->
         <!-- Content -->
         <div class="content">        
-<table>
-  <tr>
-    <th>No.</th>
-    <th>Nama Penjual</th>
-    <th>Produk yang Dibeli</th>
-    <th>Harga</th>   
-    <th>Status</th> 
-    <th>Resi</th>       
-  </tr>
-  <?php 
-  $no=1; 
-  foreach ($join3 as $row) { ?>
-  <tr>
-  <td><?php echo $no++;?></td>
-  <td><?php echo $row->nama_user;?></td>
-  <td><?php echo $row->nama;?></td>
-  <td><?php echo $row->total_harga;?></td> 
-  <td><?php //echo $row->status_id;?>
-      <?php
-                switch ($row->status_id) {
-                  case 1:
-                        echo '<div class="p-2 d-inline-block rounded-circle bg-danger">Konfirmasi Pembayaran Belum Diterima</div>';
-                        echo anchor('upload/edit/'.$row->order_id,'Upload Bukti Pembayaran');
-                      break;
-                  
-                  case 2:
-                        echo '<div class="p-2 d-inline-block rounded-circle bg-warning">Menunggu Konfirmasi Penjual</div>';
-                      break;
- 
-                   case 3:
-                        echo '<div class="p-2 d-inline-block rounded-circle bg-success">Konfirmasi Pembayaran Telah Diterima</div>';
-                      break;
-                        
-                   case 4:
-                        echo '<div class="p-2 d-inline-block rounded-circle bg-success">Pesanan Telah Dikirim</div>';
-                        echo '<td>'.$row->resi.'</td>'; 
-                      break;                        
-                }
-             ?>        
-      
-      </td>    
 
-  </tr>
-      
-    <?php } ?>
-    
-</table>            
+           <h1>Edit Status</h1>
+    <?php foreach($join3 as $u){ ?>        
+    <form action="<?php echo base_url(). 'edit_status/update'; ?>" method="post">
+		<table style="margin:20px auto;">
+			                <td><input type="hidden" name="id" value="<?php echo $u->order_id ?>"></td>
+            <tr>
+				<td>Nama User</td>
+				<td><input type="text" name="namauser" value="<?php echo $u->nama_user ?>"></td>
+			</tr>
+            <tr>
+				<td>Nama Barang</td>
+				<td><input type="text" name="namabarang" value="<?php echo $u->nama ?>"></td>
+			</tr>
+            <tr>
+				<td>Total Harga</td>
+				<td><input type="text" name="harga" value="<?php echo $u->total_harga ?>"></td>
+			</tr>            
+    	     <tr>
+            <td>Status</td>
             
+            <?php
+            $status = $u->status_id; 
+            $query2 = $this->db->query("SELECT status FROM status_order where id_status = '$status'");
+            foreach ($query2->result_array() as $rows) {
+            ?>
+            <td><select name="status">
+            <option value='<?php echo $rows['status'] ?>'><?php echo $rows['status'] ?></option>
+            <?php } ?> 
+                            
+            <?php
+            $query = $this->db->query("SELECT * FROM status_order where id_status !='$status'");
+            foreach ($query->result_array() as $row) {
+                echo "<option>".$row['status']."</option>";
+            }?>   
+            </select> </td>
+            </tr>
+            
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Ubah Status"></td>
+			</tr>
+
+		</table>
+	</form>	
+            <?php } ?>	           
+          
         </div>
+        <!-- /.content -->
+
         <!-- Footer -->
         <!-- /.site-footer -->
     </div>

@@ -82,16 +82,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<li>
 								<a href="<?php base_url()?>contact">Contact</a>
 							</li>
-    
+                    <?php
+                    $id = $this->session->userdata('id');
+                    if($id){ ?>
                             <li>
-								<a href="<?php base_url()?>beranda">Login</a>
+								<a href="<?php base_url()?>login/logout">Logout</a>
 							</li>
+                    <?php }
+                     else { ?>
+                            <li>
+								<a href="<?php base_url()?>login">Login</a>
+							</li>
+                    <?php }
+                    ?> 
 						</ul>
 					</nav>
 				</div>
 
 				<!-- Header Icon -->
 				<div class="header-icons">
+                    <?php
+                    //$id = $this->session->userdata('id');
+                    $kueri = $this->db->query("SELECT * FROM users where id_user = '$id'");
+                    foreach($kueri->result_array() as $akun){
+                        echo $akun['username'];
+                    }
+                    ?>                    
+                    
 					<a href="#" class="header-wrapicon1 dis-block">
 						<img src="<?php echo base_url(); ?>/assets/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
 					</a>
@@ -383,7 +400,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
-								<img src="<?php echo $product->gambar ?>" alt="IMG-PRODUCT">
+                                <img src="<?php echo base_url("image/".$product->gambar);?>" alt="IMG-PRODUCT">
 
 								<div class="block2-overlay trans-0-4">
 									<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
@@ -438,8 +455,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
-								<img src="<?php echo $row['gambar'] ?>" alt="IMG-PRODUCT">
-
+                                <img src="<?php echo base_url("image/".$row['gambar']);?>" alt="IMG-PRODUCT">
 								<div class="block2-overlay trans-0-4">
 									<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
 										<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>

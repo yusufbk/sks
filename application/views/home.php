@@ -82,16 +82,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<li>
 								<a href="<?php base_url()?>contact">Contact</a>
 							</li>
-
+                    <?php
+                    $id = $this->session->userdata('id');
+                    if($id){ ?>
+                            <li>
+								<a href="<?php base_url()?>login/logout">Logout</a>
+							</li>
+                    <?php }
+                     else { ?>
                             <li>
 								<a href="<?php base_url()?>login">Login</a>
 							</li>
+                    <?php }
+                    ?>    
 						</ul>
 					</nav>
 				</div>
 
 				<!-- Header Icon -->
 				<div class="header-icons">
+                    <?php
+                    //$id = $this->session->userdata('id');
+                    $kueri = $this->db->query("SELECT * FROM users where id_user = '$id'");
+                    foreach($kueri->result_array() as $akun){
+                        echo $akun['username'];
+                    }
+                    ?>
+                    
+                    
 					<a href="#" class="header-wrapicon1 dis-block">
 						<img src="<?php echo base_url(); ?>/assets/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
 					</a>
@@ -314,7 +332,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?php
                 // $query = $this->db->query('SELECT * FROM produk where iklan = "Sky King"');
                 foreach ($skyking as $row) { ?>
-				<div class="item-slick1 item1-slick1" style="background-image: url(<?php echo base_url().$row->gambar;?>);">
+				<div class="item-slick1 item1-slick1" style="background-image: url(<?php echo base_url("image/".$row->gambar);?>);">
 					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
                         <span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="rotateInDownLeft">
                             <h1 style="color : black; background: white"><?php echo $row->nama;?></h1>
@@ -451,7 +469,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
-								<img src="<?php echo base_url().$row->gambar;?>" alt="IMG-PRODUCT">
+								<img src="<?php echo base_url("image/".$row->gambar);?>" alt="IMG-PRODUCT">
 
 								<div class="block2-overlay trans-0-4">
 									<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">

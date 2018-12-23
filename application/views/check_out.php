@@ -82,12 +82,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<li>
 								<a href="<?php base_url()?>contact">Contact</a>
 							</li>
+                    <?php
+                    $id = $this->session->userdata('id');
+                    if($id){ ?>
+                            <li>
+								<a href="<?php base_url()?>login/logout">Logout</a>
+							</li>
+                    <?php }
+                     else { ?>
+                            <li>
+								<a href="<?php base_url()?>login">Login</a>
+							</li>
+                    <?php }
+                    ?>                             
 						</ul>
 					</nav>
 				</div>
 
 				<!-- Header Icon -->
 				<div class="header-icons">
+                    <?php
+                    //$id = $this->session->userdata('id');
+                    $kueri = $this->db->query("SELECT * FROM users where id_user = '$id'");
+                    foreach($kueri->result_array() as $akun){
+                        echo $akun['username'];
+                    }
+                    ?>        
+                    
 					<a href="#" class="header-wrapicon1 dis-block">
 						<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
 					</a>

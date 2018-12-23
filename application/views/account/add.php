@@ -81,7 +81,8 @@
         <div class="content">        
             <h1>Add Product</h1>
             
-    <form action="<?php echo base_url(). 'crud/tambah_aksi'; ?>" method="post">
+   <!-- <form action="<?php //echo base_url(). 'crud/tambah_aksi'; ?>" method="post">   -->
+<?php echo form_open("crud/tambah_aksi", array('enctype'=>'multipart/form-data')); ?>        
 		<table style="margin:20px auto;">
 			<tr>
 				<td>Nama Barang</td>
@@ -102,10 +103,14 @@
 				<td>Deskripsi Barang</td>
 				<td><input type="text" name="deskripsi"></td>
 			</tr>
-            			<tr>
+    		<tr>
 				<td>Harga</td>
 				<td><input type="text" name="harga"></td>
 			</tr>
+    		<tr>
+				<td>Stok</td>
+				<td><input type="text" name="stok"></td>
+			</tr>            
     	     <tr>
             <td>Iklan</td>
             <td><select name="iklan">
@@ -129,7 +134,8 @@
 			</tr>
 
 		</table>
-	</form>	           
+<!--	</form>	-->
+<?php echo form_close(); ?>        
     
         </div>
         <!-- /.content -->

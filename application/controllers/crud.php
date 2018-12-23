@@ -6,13 +6,13 @@
 		parent::__construct();	
         $this->simple_login->cek_login();  
 		$this->load->model('m_data');
-		$this->load->helper('url');
+		$this->load->helper(array('form','url'));
  
 	}
  
 	function index(){
 		$data['user'] = $this->m_data->tampil_data()->result();
-		$this->load->view('account/add');
+		$this->load->view('account/add', array('error' => ' ' ));
 	}
  
 	function tambah(){
@@ -24,22 +24,37 @@
 		$nama = $this->input->post('nama');
 		$deskripsi = $this->input->post('deskripsi');
 		$harga = $this->input->post('harga');
+        $qty = $this->input->post('stok');        
         $gambar = $this->input->post('gambar');
         $katego = $this->input->post('kateg');
-        $iklann = $this->input->post('iklan');
- 
-		$data = array(
-			'nama' => $nama,
-			'deskripsi' => $deskripsi,
-			'harga' => $harga,
-            'kategori' => $katego,
-			'iklan' => $iklann,
-			'gambar' => $gambar,
-            'seller_id' => $sellerid
-			);
+        $iklann = $this->input->post('iklan');         
         
-		$this->m_data->input_data($data,'produk');
-		redirect('products');
+        $config['upload_path']    = './image/';
+        $config['allowed_types']  = 'jpg|png|jpeg';
+        $config['max_size']       = 1000;
+        $config['remove_space']   = TRUE;
+        //$config['file_name']      = $gambar;
+       
+		$this->load->library('upload', $config);       
+ 
+		if ($this->upload->do_upload('gambar')){
+             $data = array(
+                'nama' => $nama,
+                'deskripsi' => $deskripsi,
+                'harga' => $harga,
+                'qty' => $qty,                 
+                'kategori' => $katego,
+                'iklan' => $iklann,
+                //'gambar' => $gambar,
+                'gambar' => $this->upload->data('file_name'),
+                'seller_id' => $sellerid
+                );
+
+            $this->m_data->input_data($data,'produk');
+            redirect('products'); 
+        } else{           
+                     
+        }  
 	} 
  
 	function hapus($id){
@@ -60,26 +75,41 @@
 		$nama = $this->input->post('nama');
 		$deskripsi = $this->input->post('deskripsi');
 		$harga = $this->input->post('harga');
+        $qty = $this->input->post('stok');
         $gambar = $this->input->post('gambar');
         $katego = $this->input->post('kateg');
         $iklann = $this->input->post('iklan');
  
-		$data = array(
-			'nama' => $nama,
-			'deskripsi' => $deskripsi,
-			'harga' => $harga,
-            'kategori' => $katego,
-			'iklan' => $iklann,
-			'gambar' => $gambar,
-            'seller_id' => $sellerid            
-			);
+        $config['upload_path']    = './image/';
+        $config['allowed_types']  = 'jpg|png|jpeg';
+        $config['max_size']       = 1000;
+        $config['remove_space']   = TRUE;
+        //$config['file_name']      = $gambar;
+       
+		$this->load->library('upload', $config);       
  
-	   $where = array(
-		  'id' => $id
-	   );
- 
-	   $this->m_data->update_data($where,$data,'produk');
-	   redirect('products');
+		if ($this->upload->do_upload('gambar')){           
+            $data = array(
+                'nama' => $nama,
+                'deskripsi' => $deskripsi,
+                'harga' => $harga,
+                'qty' => $qty,
+                'kategori' => $katego,
+                'iklan' => $iklann,
+                //'gambar' => $gambar,
+                'gambar' => $this->upload->data('file_name'),
+                'seller_id' => $sellerid            
+                );
+
+           $where = array(
+              'id' => $id
+           );
+
+           $this->m_data->update_data($where,$data,'produk');
+           redirect('products');
+        } else{           
+                     
+        }
      }     
  
 }

@@ -88,9 +88,10 @@
 			<td><?php echo $u->nama ?></td><br>
             <td><?php echo $u->kategori ?></td><br>
 			<td><?php echo $u->deskripsi ?></td><br>
+			<td><?php echo $u->qty ?></td><br>            
 			<td><?php echo $u->harga ?></td><br>
             <td><?php echo $u->iklan ?></td><br>
-            <td><img src="<?php echo $u->gambar ?>"></td><br>
+            <td><img src="<?php echo base_url("image/".$u->gambar); ?>."' width='400' height='400'"></td><br>
 			<td>
 			      <?php echo anchor('crud/edit/'.$u->id,'Edit'); ?>
                   <?php echo anchor('crud/hapus/'.$u->id,'Hapus'); ?>

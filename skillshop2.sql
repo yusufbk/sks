@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 10 Des 2018 pada 12.46
+-- Generation Time: 23 Des 2018 pada 21.12
 -- Versi Server: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -31,16 +31,18 @@ CREATE TABLE `detail_order` (
   `order_id` int(11) NOT NULL,
   `produk` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
-  `total_harga` int(11) NOT NULL
+  `total_harga` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL,
+  `bukti_bayar` varchar(100) NOT NULL,
+  `resi` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `detail_order`
 --
 
-INSERT INTO `detail_order` (`id`, `order_id`, `produk`, `qty`, `total_harga`) VALUES
-(6, 8, 11, 1, 1000),
-(7, 9, 7, 1, 5000000);
+INSERT INTO `detail_order` (`id`, `order_id`, `produk`, `qty`, `total_harga`, `status_id`, `bukti_bayar`, `resi`) VALUES
+(19, 20, 8, 1, 100000, 4, '44308803_2648_n.jpg', '1207733628172');
 
 -- --------------------------------------------------------
 
@@ -101,8 +103,7 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`id`, `tanggal`, `pelanggan`) VALUES
-(8, '2018-12-09', 9),
-(9, '2018-12-10', 1);
+(20, '2018-12-23', 3);
 
 -- --------------------------------------------------------
 
@@ -112,8 +113,8 @@ INSERT INTO `order` (`id`, `tanggal`, `pelanggan`) VALUES
 
 CREATE TABLE `produk` (
   `id` int(11) NOT NULL,
-  `nama` varchar(30) NOT NULL,
-  `deskripsi` varchar(100) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `deskripsi` varchar(1000) NOT NULL,
   `harga` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
   `kategori` varchar(30) NOT NULL,
@@ -127,12 +128,34 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id`, `nama`, `deskripsi`, `harga`, `qty`, `kategori`, `iklan`, `gambar`, `seller_id`) VALUES
-(6, 'M Sky K2', 'Mouse Sky King 2', 90000, 5, 'Mouse', 'Sky King', 'goon 1.png', 1),
-(7, 'L Supreme', 'Laptop Supreme', 5000000, 4, 'Laptop', 'Supreme', '07_Mold.jpg', 1),
-(8, 'M Supreme', 'Mouse Supreme', 45678, 3, 'Mouse', 'Supreme', 'a.jpg', 1),
-(9, 'M Sky K', 'Mouse Sky King', 87878, 6, 'Mouse', 'Sky King', '0lwj5OA.jpg', 1),
-(10, 'H Newbie', 'Headset Newbie', 67500, 5, 'Headset', 'Newbie', '34894278_1698245063556009_8889752351829655552_n.jpg', 1),
-(11, 'M None', 'Mouse None', 1000, 4, 'Mouse', 'None', 'WhatsApp Image 2018-05-01 at 08.01.14.jpeg', 3);
+(6, 'LOGITECH G103 PRODIGY', 'Fitur: - Sensor 200-8.000 DPI - Memori pada Perangkat - Pencahayaan RGB yang Dapat Diprogram (Pilih lebih dari 16,8 juta warna) - Enam tombol yang dapat diprogram - Peralihan DPI dalam sekejap mata - Memori pada Perangkat', 225000, 1, 'Mouse', 'Sky King', '2465699_a5e080.jpg', 1),
+(7, 'MSI Gaming GL63 8RC', 'Tipe Prosesor : Intel Core i5     Memori Standar : 4GB DDR4     Kapasitas Penyimpanan : 1TB HDD     Sistem Operasi : Microsoft Windows 10 Home       Garansi: Garansi Resmi 1 Tahun Info     15 hari Pengembalian Produk', 12999999, 4, 'Laptop', 'Supreme', 'msi_msi-gaming-gl63-8rc.jpg', 1),
+(8, 'R8 1822 Bakclight Gaming Keyboard', 'Type:Wired,illuminated,backlight Material:ABS USB port Color :Black,white waterproof & heat resistant', 100000, 2, 'Keyboard', 'Supreme', '137803_700_700.jpg', 1),
+(9, 'Razer Chroma', '3500dpi Razer Precision 3.5G infrared sensor Ambidextrous design Autobots blue lights, Chan crystal black steel mirror processing Hardware switch for adjusting the dpi and polling rate', 180000, 6, 'Mouse', 'Sky King', '1602582_03885297-b1f1.jpg', 1),
+(10, 'REXUS Thundervox 7.1 Surround HX2 Blue', 'Gaming Headset, 7.1 Surround Sound, Speaker : 50mm, Frekuensi : 15Hz-20000Hz, Impedance : 32ohm, Sensitivity : 120dB, Cable : 2.2m', 275000, 3, 'Headset', 'Newbie', '59b788ec69b73.jpg', 1),
+(11, 'ASTRO A50 WIRELESS 7 1', 'Transducer Principle: Open Air Frequency Response: 20 21,000 Hz Distortion: THD < 1% Microphone: 6.0mm unidirectional with noise gate Nominal Impedance: 48 Ohms Headband Pressure: 2.6N', 5400000, 4, 'Headset', 'None', 'ASTRO_A50_WIRELESS_7_1_HEADSET__XBOX__.jpg', 3),
+(16, 'ASUS ROG GL553VD', 'ROG Strix GL553 comes with Windows 10 pre-installed and features a 7th-generation Intel® Core™ i7 quad-core processor, NVIDIA® GeForce® GTX 1050 graphics and full Microsoft® DirectX® 12 support to give you powerful performance and flawless gaming visuals.', 13500000, 5, 'Laptop', 'Sky King', 'd2ab1076c36cf4c6dc134c957d8a940812e00d43.jpeg', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `status_order`
+--
+
+CREATE TABLE `status_order` (
+  `id_status` int(11) NOT NULL,
+  `status` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `status_order`
+--
+
+INSERT INTO `status_order` (`id_status`, `status`) VALUES
+(1, 'Konfirmasi pembayaran belum diterima'),
+(2, 'Menunggu konfirmasi penjual'),
+(3, 'Konfirmasi pembayaran telah diterima'),
+(4, 'Pesanan telah dikirim');
 
 -- --------------------------------------------------------
 
@@ -194,6 +217,12 @@ ALTER TABLE `produk`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `status_order`
+--
+ALTER TABLE `status_order`
+  ADD PRIMARY KEY (`id_status`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -208,7 +237,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `detail_order`
 --
 ALTER TABLE `detail_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `iklan`
 --
@@ -223,12 +252,17 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT for table `status_order`
+--
+ALTER TABLE `status_order`
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `users`
 --

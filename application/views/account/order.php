@@ -85,7 +85,9 @@
     <th>Nama Pembeli</th>
     <th>Nama Produk</th>
     <th>Harga</th>   
-    <th>Alamat</th>    
+    <th>Alamat</th>  
+    <th>Bukti Bayar</th>  
+    <th>Status</th>        
   </tr>
   <?php 
   $no=1; 
@@ -95,7 +97,34 @@
   <td><?php echo $row->nama_user;?></td>
   <td><?php echo $row->nama;?></td>
   <td><?php echo $row->total_harga;?></td>
-  <td><?php echo $row->alamat;?></td>      
+  <td><?php echo $row->alamat;?></td>
+  <td><img src="<?php echo base_url("img-bayar/".$row->bukti_bayar); ?>."' width='400' height='400'"></td>         
+  <td><?php //echo $row->status_id;?>
+      <?php
+                switch ($row->status_id) {
+                  case 1:
+                        echo '<div class="p-2 d-inline-block rounded-circle bg-danger">Konfirmasi Pembayaran Belum Diterima</div>';
+                      break;
+                  
+                  case 2:
+                        echo '<div class="p-2 d-inline-block rounded-circle bg-warning">Menunggu Konfirmasi Penjual</div>';
+                      break;
+ 
+                   case 3:
+                        echo '<div class="p-2 d-inline-block rounded-circle bg-success">Konfirmasi Pembayaran Telah Diterima</div>';
+                      break;
+                        
+                   case 4:
+                        echo '<div class="p-2 d-inline-block rounded-circle bg-success">Pesanan Telah Dikirim</div>';
+                        echo anchor('resi/input/'.$row->order_id,'Input Resi');
+                      break;                        
+                }
+             ?>        
+      
+      </td>     
+			<td>
+                  <?php echo anchor('edit_status/edit/'.$row->order_id,'Edit Status'); ?>
+			</td>         
 
   </tr>
     <?php } ?>

@@ -82,12 +82,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<li>
 								<a href="<?php base_url()?>contact">Contact</a>
 							</li>
+                    <?php
+                    $id = $this->session->userdata('id');
+                    if($id){ ?>
+                            <li>
+								<a href="<?php base_url()?>login/logout">Logout</a>
+							</li>
+                    <?php }
+                     else { ?>
+                            <li>
+								<a href="<?php base_url()?>login">Login</a>
+							</li>
+                    <?php }
+                    ?>                             
 						</ul>
 					</nav>
 				</div>
 
 				<!-- Header Icon -->
 				<div class="header-icons">
+                    <?php
+                    //$id = $this->session->userdata('id');
+                    $kueri = $this->db->query("SELECT * FROM users where id_user = '$id'");
+                    foreach($kueri->result_array() as $akun){
+                        echo $akun['username'];
+                    }
+                    ?>                
+                    
 					<a href="#" class="header-wrapicon1 dis-block">
 						<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
 					</a>
@@ -391,7 +412,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<div class="slick3">
 						<div class="item-slick3" data-thumb="images/thumb-item-01.jpg">
 							<div class="wrap-pic-w">
-								<img src="<?php echo $row['gambar'] ?>" alt="IMG-PRODUCT">
+                                <img src="<?php echo base_url("image/".$row['gambar']); ?>.">
 							</div>
 						</div>
 
@@ -490,6 +511,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 				</div>
 
+				<div class="wrap-dropdown-content bo6 p-t-15 p-b-14 active-dropdown-content">
+					<h5 class="js-toggle-dropdown-content flex-sb-m cs-pointer m-text19 color0-hov trans-0-4">
+						Seller
+						<i class="down-mark fs-12 color1 fa fa-minus dis-none" aria-hidden="true"></i>
+						<i class="up-mark fs-12 color1 fa fa-plus" aria-hidden="true"></i>
+					</h5>
+                    <?php $seller = $row['seller_id'];
+                    $kueri2 = $this->db->query("SELECT * FROM users where id_user = '$seller'");
+                    foreach($kueri2->result_array() as $sell){
+                    ?>
+					<div class="dropdown-content dis-none p-t-15 p-b-23">
+						<p class="s-text8">
+                            <?php echo $sell['username']; } ?>
+						</p>
+					</div>
+				</div>                    
+                    
 				<div class="wrap-dropdown-content bo7 p-t-15 p-b-14">
 					<h5 class="js-toggle-dropdown-content flex-sb-m cs-pointer m-text19 color0-hov trans-0-4">
 						Additional information
@@ -547,8 +585,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
-								<img src="<?php echo $rows['gambar'] ?>" alt="IMG-PRODUCT">
-
+                                <img src="<?php echo base_url("image/".$rows['gambar']); ?>.">
 								<div class="block2-overlay trans-0-4">
 									<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
 										<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
@@ -581,22 +618,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		</div>
 	</section>
-
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>Produk</th>
-						<th>Harga</th>
-						<th>Qty</th>
-						<th>Subtotal</th>
-						<th>Aksi</th>
-					</tr>
-				</thead>
-				<tbody id="detail_cart">
-
-				</tbody>
-				
-			</table>
 	<!-- Footer -->
 	<footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
 		<div class="flex-w p-b-90">

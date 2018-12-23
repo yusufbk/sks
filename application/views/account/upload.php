@@ -79,55 +79,31 @@
         <!-- /#header -->
         <!-- Content -->
         <div class="content">        
-<table>
-  <tr>
-    <th>No.</th>
-    <th>Nama Penjual</th>
-    <th>Produk yang Dibeli</th>
-    <th>Harga</th>   
-    <th>Status</th> 
-    <th>Resi</th>       
-  </tr>
-  <?php 
-  $no=1; 
-  foreach ($join3 as $row) { ?>
-  <tr>
-  <td><?php echo $no++;?></td>
-  <td><?php echo $row->nama_user;?></td>
-  <td><?php echo $row->nama;?></td>
-  <td><?php echo $row->total_harga;?></td> 
-  <td><?php //echo $row->status_id;?>
-      <?php
-                switch ($row->status_id) {
-                  case 1:
-                        echo '<div class="p-2 d-inline-block rounded-circle bg-danger">Konfirmasi Pembayaran Belum Diterima</div>';
-                        echo anchor('upload/edit/'.$row->order_id,'Upload Bukti Pembayaran');
-                      break;
-                  
-                  case 2:
-                        echo '<div class="p-2 d-inline-block rounded-circle bg-warning">Menunggu Konfirmasi Penjual</div>';
-                      break;
- 
-                   case 3:
-                        echo '<div class="p-2 d-inline-block rounded-circle bg-success">Konfirmasi Pembayaran Telah Diterima</div>';
-                      break;
-                        
-                   case 4:
-                        echo '<div class="p-2 d-inline-block rounded-circle bg-success">Pesanan Telah Dikirim</div>';
-                        echo '<td>'.$row->resi.'</td>'; 
-                      break;                        
-                }
-             ?>        
-      
-      </td>    
 
-  </tr>
-      
-    <?php } ?>
-    
-</table>            
+           <h1>Upload Bukti Pembayaran</h1>
+    <?php foreach($join3 as $u){ ?> 
+    <!--<form action="<?php //echo base_url(). 'upload/update'; ?>" method="post">-->
+<?php echo form_open("upload/update", array('enctype'=>'multipart/form-data')); ?>           
+		<table style="margin:20px auto;">
+            <td><input type="hidden" name="id" value="<?php echo $u->order_id ?>"></td>  
+            <tr>
+				<td>Upload Pembayaran</td>
+				<td><input type="file" name="gambar"></td>
+			</tr>            
             
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Upload"></td>
+			</tr>
+
+		</table>
+	<!--</form>	-->
+<?php echo form_close(); ?>          
+            <?php } ?>	           
+          
         </div>
+        <!-- /.content -->
+
         <!-- Footer -->
         <!-- /.site-footer -->
     </div>
